@@ -34,3 +34,14 @@ unique_genres = get_unique_genres(movie_table)
 selected_genres = st.selectbox('select the genre you like', unique_genres)
 
 st.write(f'max year: {max_year}, min year: {min_year}, selected genres: {selected_genres}')
+
+year_lower = movie_table.title_year >= min_year
+year_upper = movie_table.title_year < max_year
+
+year_constrain = movie_table[year_lower & year_upper]
+
+year_constrain['genres_sellected'] = year_constrain.genres.apply(lambda x: selected_genres in x)
+year_constrain_genre_selected = year_constrain[year_constrain.genres_sellected]
+
+scored_result = year_constrain_genre_selected.sort_values(by=['imdb_score'], ascending=False)
+st.write(scored_result[['movie_title', 'imdb_score', 'genres', 'title_year']])
