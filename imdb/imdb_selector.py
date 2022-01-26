@@ -12,7 +12,7 @@ NA_FILL_VALUE = -1
 
 @st.cache
 def get_df():
-    df = pd.read_csv('movie_metadata.csv')
+    df = pd.read_csv('imdb/movie_metadata.csv')
     df= df.dropna(subset=['title_year'])
     df['title_year'] = df.title_year.astype(int)
     return df
