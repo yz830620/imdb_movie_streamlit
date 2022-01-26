@@ -20,13 +20,15 @@ def get_df():
     df['description'] = df.description.str.lower()
     return df
 
+st.title('recipy recommendation')
+
 recipes = get_df()
 
 st.write('recipes quantity: ', len(recipes))
 
 
 spice_list = ['salt', 'pepper', 'oregano', 'sage', 'parsley', 'rosemary', 'tarragon', 'thyme', 'paprika', 'cumin']
-options = st.multiselect("enter which spice you are interested(multi-select)", spice_list)
+options = st.multiselect("enter which spice you are interested(multi-select)", spice_list, spice_list[0])
 
 
 spice_df = pd.DataFrame(dict((spice, recipes.ingredients.str.contains(spice)) for spice in spice_list))
