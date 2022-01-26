@@ -9,5 +9,5 @@ import subprocess
 
 
 
-subprocess.run(["wget ", "-O", "recipeitems-latest.json.gz", "'https://docs.google.com/uc?export=download&id=1hGSFmpptgZyX4jOal8B9LFDiLZACPSqO'"])
+subprocess.run(["curl", "-L", "-o", "recipeitems-latest.json.gz", "'https://docs.google.com/uc?export=download&id=1hGSFmpptgZyX4jOal8B9LFDiLZACPSqO'"])
 subprocess.run(["gunzip", "recipeitems-latest.json.gz"])
