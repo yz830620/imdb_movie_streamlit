@@ -34,8 +34,8 @@ table_min_year = int(movie_table.title_year.min())
 table_max_year = int(movie_table.title_year.max())
 
 #get data from streamlit
-user_max_year = st.slider('movie not more than ...', min_value=table_min_year, max_value=table_max_year, value=2000)
-user_min_year = st.slider('movie not less than ...', min_value=table_min_year, max_value=table_max_year, value=1990)
+user_max_year = st.slider('year of movie not more than ...', min_value=table_min_year, max_value=table_max_year, value=2000)
+user_min_year = st.slider('year movie not less than ...', min_value=table_min_year, max_value=table_max_year, value=1990)
 
 # switch two boundary if user misunderstanding
 if user_max_year < user_min_year:
@@ -56,7 +56,7 @@ year_lower_mask = movie_table.title_year >= user_min_year
 year_upper_mask = movie_table.title_year < user_max_year
 
 # select data stand within the period user interested
-year_constrain = movie_table[year_lower_mask & year_upper_mask]
+year_constrain = movie_table[year_lower_mask & year_upper_mask].copy()
 
 # make sure movie contain genre user selected
 year_constrain['genres_sellected'] = year_constrain.genres.str.contains(selected_genres)
@@ -67,3 +67,6 @@ scored_result = year_constrain_genre_selected.sort_values(by=['imdb_score'], asc
 
 # print only top ten result by using head(10)
 st.write(scored_result[['movie_title', 'imdb_score', 'genres', 'title_year']].head(10).reset_index(drop=True))
+
+
+st.write("check out how did this app make [link](https://www.notion.so/evenpan/streamlit-8bbc98a6b55546b9b976ac0e01238bb4)")
