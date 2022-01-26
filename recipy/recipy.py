@@ -15,7 +15,7 @@ with gzip.open('recipy/recipeitems-latest.json.gz', 'rb') as f_in:
 
 @st.cache
 def get_df():
-    df = pd.read_json('recipeitems-latest.json', lines=True)
+    df = pd.read_json('recipy/recipeitems-latest.json', lines=True)
     return df
 
 recipes = get_df()
