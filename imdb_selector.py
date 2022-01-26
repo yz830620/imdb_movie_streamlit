@@ -25,6 +25,7 @@ def get_unique_genres(df):
         unique_genres.update(multi_genres.split('|'))
     return sorted(unique_genres)
 
+st.title('IMDB old movie selector')
 
 #use cache dataframe
 movie_table = get_df()
@@ -65,4 +66,4 @@ year_constrain_genre_selected = year_constrain[year_constrain.genres_sellected]
 scored_result = year_constrain_genre_selected.sort_values(by=['imdb_score'], ascending=False)
 
 # print only top ten result by using head(10)
-st.write(scored_result[['movie_title', 'imdb_score', 'genres', 'title_year']].head(10))
+st.write(scored_result[['movie_title', 'imdb_score', 'genres', 'title_year']].head(10).reset_index(drop=True))
