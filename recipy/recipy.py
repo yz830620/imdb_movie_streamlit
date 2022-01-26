@@ -26,7 +26,7 @@ recipes = get_df()
 
 st.write('recipes quantity: ', len(recipes))
 
-st.write(recipes.head())
+# st.write(recipes.head())
 
 with st.container():
     col1, col2, col3 = st.columns(3)
@@ -80,11 +80,11 @@ options = st.multiselect("enter which spice you are interested(multi-select)", s
 spice_df = pd.DataFrame(dict((spice, recipes.ingredients.str.contains(spice)) for spice in spice_list))
 
 selection = spice_df.query(' & '.join(options))
-st.write(len(selection))
+st.write(f'There are `{len(selection)}` recipes after your query.')
 
 selected_result = recipes.iloc[selection.index]
 selected_result = selected_result.dropna(subset=['image', 'url']).head(4).reset_index()
-st.write(selected_result)
+# st.write(selected_result)
 
 with st.container():
     res1, res2 = st.columns(2)
@@ -110,4 +110,3 @@ with st.container():
         st.subheader(selected_result.name[3])
         st.image(selected_result.image[3])
         st.write(f'check out recipy [here]({selected_result.url[3]})')
-
