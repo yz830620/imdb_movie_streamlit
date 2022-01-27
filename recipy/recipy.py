@@ -3,15 +3,18 @@
 DESC: app for Recipy recommendation
 
 """
-from lib2to3.pgen2.pgen import DFAState
 import shutil
 import streamlit as st
 import pandas as pd
 import gzip
 
-with gzip.open('recipy/recipeitems-latest.json.gz', 'rb') as f_in:
-    with open('recipy/recipeitems-latest.json', 'wb') as f_out:
-        shutil.copyfileobj(f_in, f_out)
+@st.cache
+def extract_gz():
+    with gzip.open('recipy/recipeitems-latest.json.gz', 'rb') as f_in:
+        with open('recipy/recipeitems-latest.json', 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+
+extract_gz()
 
 
 @st.cache(allow_output_mutation=True)
@@ -49,7 +52,7 @@ selection = spice_df.query(' & '.join(options))
 st.write(f'There are `{len(selection)}` recipes after your query.')
 
 selected_result = recipes.iloc[selection.index]
-selected_result = selected_result.dropna(subset=['image', 'url']).sample(4).reset_index()
+selected_result = selected_result.dropna(subset=['image', 'url']).reset_index()
 # st.write(selected_result)
 
 with st.container():
