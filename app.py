@@ -5,7 +5,7 @@ from multipage import MultiPage
 from imdb import imdb_selector
 from recipy import select_spice, text_ingredient
 
-from util import extract_gz
+from recipy.util import extract_gz
 
 # Create an instance of the app 
 app = MultiPage()

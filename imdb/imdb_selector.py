@@ -6,7 +6,7 @@ output: top ten IMDB_score movie (with title/year/genre/score)
 """
 import streamlit as st
 
-from util import get_df_imdb, get_unique_genres
+from .util import get_df_imdb, get_unique_genres
 
 def app():
 

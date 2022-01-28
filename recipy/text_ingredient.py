@@ -5,7 +5,8 @@ DESC: app for Recipy recommendation
 """
 
 import streamlit as st
-from util import get_df_recipy, even_visualization
+
+from .util import get_df_recipy, get_spice_df, even_visualization
 
 
 def app():
@@ -22,8 +23,11 @@ def app():
 
     ingredient_mask = recipes.ingredients.str.contains(interested_ingredient)
 
-    max_number = st.slider('how many to display', min_value=4, max_value=16, value=4)
+    max_number = st.sidebar.slider('how many to display', min_value=4, max_value=30, value=15)
 
     ingredient_recipy = recipes[ingredient_mask].head(max_number).reset_index()
 
     even_visualization(ingredient_recipy, max_number)
+
+if __name__ == "__main__":
+    app()

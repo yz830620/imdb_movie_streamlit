@@ -3,7 +3,7 @@
 DESC: app for Recipy recommendation
 """
 import streamlit as st
-from util import get_df_recipy, get_spice_df, even_visualization
+from .util import get_df_recipy, get_spice_df, even_visualization
 
 
 def app():
@@ -26,10 +26,13 @@ def app():
     selection = spice_df.query(' & '.join(options))
     st.write(f'There are `{len(selection)}` recipes after your query.')
 
-    max_number = st.slider('how many to display', min_value=4, max_value=16, value=4)
+    max_number = st.sidebar.slider('how many to display', min_value=4, max_value=30, value=15)
 
     selected_result = recipes.iloc[selection.index]
-    selected_result = selected_result.dropna(subset=['image', 'url']).head(max_number).reset_index()
+    selected_result = selected_result.dropna(subset=['image', 'url']).head(max_number).reset_index(drop=True)
     # st.write(selected_result)
 
     even_visualization(selected_result,max_number)
+
+if __name__ == "__main__":
+    app()
